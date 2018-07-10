@@ -78,20 +78,12 @@ def deal_player():
     if player_score > 21:
         result_text.set("Dealer Wins!")
 
-    # global player_score
-    # global player_ace
-    # card_value = deal_card(player_card_frame)[0]
-    # if card_value == 1 and not player_ace:
-    #     player_ace = True
-    #     card_value = 11
-    # player_score += card_value
-    # # if we would bust, check if these is an ace and then subtract 10
-    # if player_score > 21 and player_ace:
-    #     player_score -= 10
-    #     player_ace = False
-    # player_score_label.set(player_score)
-    # if player_score > 21:
-    #     result_text.set("Dealer Wins!")
+        
+def initial_deal():
+    deal_player()
+    dealer_hand.append(deal_card(dealer_card_frame))
+    dealer_score_label.set(score_hand(dealer_hand))
+    deal_player()
 
 
 def game_reset():
@@ -115,14 +107,16 @@ def game_reset():
     dealer_hand = []
     player_hand = []
 
-    deal_player()
-    dealer_hand.append(deal_card(dealer_card_frame))
-    dealer_score_label.set(score_hand(dealer_hand))
-    deal_player()
+    initial_deal()
 
 
 def shuffle():
     random.shuffle(deck)
+
+
+def play():
+    initial_deal()
+    mainWindow.mainloop()
 
 
 mainWindow = tkinter.Tk()
@@ -184,7 +178,5 @@ shuffle()
 dealer_hand = []
 player_hand = []
 
-game_reset()
-
-
-mainWindow.mainloop()
+if __name__ == "__main__":
+    play()
